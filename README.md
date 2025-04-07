@@ -1,2 +1,2 @@
 # cuda_100_chalenge
-This is cuda 100 days chalenge.I write and  upload  to this repo cuda codes everyday for 100 days. Starting from the basic to more advanced.
+This repository is for cuda 100 days chalenge.I write and  upload everyday to this repo cuda codes for 100 days. Starting from the basic cuda to more advanced.
