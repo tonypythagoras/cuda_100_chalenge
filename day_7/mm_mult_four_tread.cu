@@ -5,7 +5,7 @@
 
 
 //this is the kernel that does the matrix multiplication but with only one thread
-__global__ void mm_four_tread(int *a, int *b, int *c, int width,int N){
+__global__ void mm_four_tread(float *a, float *b, float *c, int width,int N){
 
     unsigned int row = blockIdx.y * blockDim.y + threadIdx.y;
     unsigned int col = blockIdx.x * blockDim.x + threadIdx.x;
@@ -31,24 +31,29 @@ if(globalId < N){
 
 int main(){
 
-    unsigned int N= 256;
-    unsigned int size= N*sizeof(int);
-    unsigned int width= 16;
+    unsigned int N= 16;
+    unsigned int size= N*sizeof(float);
+    unsigned int width= 4;
 
-    int *a=new int[N];
-    int *b= new int[N];
-    int *c = new int[N];
+    float *a=new float[N];
+    float *b= new float[N];
+    float *c = new float[N];
 
 
     // initialize the array in the host
      for (int i=0;i<N; i++){
-       a[i]=i+2;
-       b[i]=i+1;
+      if(i==4||i==13||i==15){
+       a[i]=2.0;
+      }else{
+         a[i]=1.0;
+      }
+       b[i]=2.0;
      }
 
-     int *a_d;
-     int *b_d;
-     int *c_d;
+
+     float *a_d;
+     float *b_d;
+     float *c_d;
      
      // allocate memories on the device
      cudaMalloc((void**)&a_d,size);
@@ -61,8 +66,8 @@ int main(){
      cudaMemcpy(b_d,b,size,cudaMemcpyHostToDevice);
 
       // allocate thread and thread blocks
-     dim3 threadPerBlock(1,2);
-     dim3 numberOfBlocks(threadPerBlock.x, threadPerBlock.y);
+     dim3 threadPerBlock(2,2);
+     dim3 numberOfBlocks((width + threadPerBlock.x -1)/threadPerBlock.x, (width + threadPerBlock.y - 1)/threadPerBlock.y);
 
 
 
@@ -88,13 +93,5 @@ delete[] b;
 delete[] c;
 
 return 0;
-
-
-
-
-
-
-
-
 
 }

@@ -5,7 +5,7 @@
 
 
 //this is the kernel that does the matrix multiplication
-__global__ void matrix_m(int *a, int *b, int *c, int width,int N){
+__global__ void matrix_m(float *a, float *b, float *c, int width,int N){
 
     unsigned int row = blockIdx.y * blockDim.y + threadIdx.y;
     unsigned int col = blockIdx.x * blockDim.x + threadIdx.x;
@@ -34,9 +34,9 @@ int main(){
     unsigned int width=16;
 
     // allocates  memory in the host
-    int *a=new int[N];
-    int *b=new int[N];
-    int *c=new int[N];
+    float *a=new float[N];
+    float *b=new float[N];
+    float *c=new float[N];
      
 
 // initialize the array in the host
@@ -49,9 +49,9 @@ int main(){
     
 
 
-    int *a_d;
-    int *b_d;
-    int *c_d;
+    float *a_d;
+    float *b_d;
+    float *c_d;
     // allocates device memory
     cudaMalloc((void**)&a_d,size);
     cudaMalloc((void**)&b_d,size);
@@ -86,8 +86,5 @@ int main(){
     delete[] c;
 
     return 0;
-
-
-
 
 }

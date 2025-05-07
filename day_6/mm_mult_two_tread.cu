@@ -4,8 +4,8 @@
 #include <iostream>
 
 
-//this is the kernel that does the matrix multiplication but with only one thread
-__global__ void mm_two_tread(int *a, int *b, int *c, int width,int N){
+//this is the kernel that does the matrix multiplication but with only two thread
+__global__ void mm_two_tread(float *a, float *b, float *c, int width,int N){
 
     unsigned int row = blockIdx.y * blockDim.y + threadIdx.y;
     unsigned int col = blockIdx.x * blockDim.x + threadIdx.x;
@@ -35,9 +35,9 @@ int main(){
     unsigned int size= N*sizeof(int);
     unsigned int width= 16;
 
-    int *a=new int[N];
-    int *b= new int[N];
-    int *c = new int[N];
+    float *a=new float[N];
+    float *b= new float[N];
+    float *c = new float[N];
 
 
     // initialize the array in the host
@@ -46,9 +46,9 @@ int main(){
        b[i]=i+1;
      }
 
-     int *a_d;
-     int *b_d;
-     int *c_d;
+     float *a_d;
+     float *b_d;
+     float *c_d;
      
      // allocate memories on the device
      cudaMalloc((void**)&a_d,size);
