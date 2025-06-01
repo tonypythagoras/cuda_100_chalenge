@@ -9,7 +9,7 @@ unsigned const int P = 4;
 unsigned const int NUM_BLOCK=4;
 unsigned const int THREAD_PER_BLOCK=4;
 
-// This kernel computes the scan using koge-stoe using shared memory
+// This kernel computes the inclusive scan using koge-stoe using shared memory
 __global__ void scanKernel(float *input, float *vector, float * partial_sum){
    int i = blockIdx.x * blockDim.x + threadIdx.x;
 

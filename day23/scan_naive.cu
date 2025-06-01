@@ -9,7 +9,7 @@ unsigned const int P = 4;
 unsigned const int NUM_BLOCK=4;
 unsigned const int THREAD_PER_BLOCK=4;
 
-// This performs scan of numbers in an array
+// This performs an inclusive scan of numbers in an array
 __global__ void scanKernel(float *input, float *vector, float * partial_sum){
    int i = blockIdx.x * blockDim.x + threadIdx.x;
 

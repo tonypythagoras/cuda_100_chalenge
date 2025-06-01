@@ -10,7 +10,7 @@ unsigned const int NUM_BLOCK=2;
 unsigned const int THREAD_PER_BLOCK=4;
 unsigned const int SEG_BLOCK=8;
 
-// This kernel computes the scan of an array using brent-kung approach
+// This kernel computes the inclusive scan of an array using brent-kung approach
 __global__ void scanKernel(float *input, float *vector, float * partial_sum){
    int seg = blockIdx.x * blockDim.x * 2;
    __shared__ float buf[SEG_BLOCK];
